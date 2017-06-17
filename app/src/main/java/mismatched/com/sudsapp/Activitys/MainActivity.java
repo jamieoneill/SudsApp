@@ -1,20 +1,28 @@
-package mismatched.com.sudsapp;
+package mismatched.com.sudsapp.Activitys;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mismatched.com.sudsapp.Adapters.BeerAdapter;
 import mismatched.com.sudsapp.Models.Beer;
 import mismatched.com.sudsapp.Models.BeerResponse;
+import mismatched.com.sudsapp.R;
 import mismatched.com.sudsapp.Rest.ApiClient;
 import mismatched.com.sudsapp.Rest.ApiInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+/**
+ * Created by jamie on 15/06/2017.
+ */
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
@@ -27,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //set client
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        //Call<BeerResponse> call = apiService.getAllBeers(API_KEY);
-        //Call<BeerResponse> call = apiService.getOneBeer("oeGSxs",API_KEY);
+        //set recycler view
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.beers_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //set attributes to make sure we always have a brewery & image.
         //we need a required param to use the api for free so availableId is set
@@ -50,26 +58,21 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<BeerResponse>() {
             @Override
             public void onResponse(Call<BeerResponse>call, Response<BeerResponse> response) {
-                //String beerName = response.body().getData().getName();
-                //Brewery beerBrewery = (Brewery) response.body().getData().getBrewery();
-                //String beerBreweryName = beerBrewery.getName();
-                //Beer newBeer = response.body().getData();
 
-                List<Beer> movies = response.body().getData();
-                Log.d(TAG, "Size: " + movies.size());
+                //get data and add it to the view
+                List<Beer> beers = response.body().getData();
+                recyclerView.setAdapter(new BeerAdapter(beers, R.layout.list_item_beer, getApplicationContext()));
 
-               // Log.d(TAG, "Name: " + beerName);
-
-                //Log.d(TAG, "Brewery: " + beerBrewery);
-                Log.d(TAG, "Number of beers received: " + response.isSuccessful());
-                Log.d(TAG, "why: " + response.raw());
-
+                //logs
+                Log.d(TAG, "Success: " + response.isSuccessful());
+                Log.d(TAG, "Url: " + response.raw());
+                Log.d(TAG, "Size: " + beers.size());
             }
 
             @Override
             public void onFailure(Call<BeerResponse>call, Throwable t) {
-                // Log error here since request failed
-                Log.e(TAG, t.toString());
+                // Print error
+                Log.d(TAG, t.toString());
             }
         });
     }

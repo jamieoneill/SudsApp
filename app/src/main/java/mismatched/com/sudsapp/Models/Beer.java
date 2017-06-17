@@ -13,38 +13,38 @@ public class Beer {
     //private variables
     @SerializedName("name")
     private String name;
-    @SerializedName("brewery")
-    private List<Brewery> brewery;
+    @SerializedName("breweries")
+    private List<Brewery> breweries;
     @SerializedName("description")
     private String description;
-    @SerializedName("label")
-    private String label;
+    @SerializedName("labels")
+    private Labels labels;
 
     // Empty constructor
     public Beer(){
     }
 
     // constructor
-    public Beer(String name, List<Brewery> brewery, String description, String label){
+    public Beer(String name, List<Brewery> breweries, String description, Labels labels){
         this.name= name;
-        this.brewery = brewery;
+        this.breweries = breweries;
         this.description = description;
-        this.label = label;
+        this.labels = labels;
     }
 
     public String getName() {return name;}
 
     public void setName(String name) {this.name = name;}
 
-    public List<Brewery> getBrewery() {return brewery;}
+    public List<Brewery> getBrewery() {return breweries;}
 
-    public void setBrewery(List<Brewery> brewery) {this.brewery = brewery;}
+    public void setBrewery(List<Brewery> brewery) {this.breweries = breweries;}
 
     public String getDescription() {return description;}
 
     public void setDescription(String description) {this.description = description;}
 
-    public String getLabel() {return label;}
+    public Labels getLabels() {return labels;}
 
-    public void setLabel(String label) {this.label = label;}
+    public void setLabels(Labels labels) {this.labels = labels;}
 }

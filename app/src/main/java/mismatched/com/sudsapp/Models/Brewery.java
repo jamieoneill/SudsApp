@@ -1,7 +1,5 @@
 package mismatched.com.sudsapp.Models;
 
-import java.util.List;
-
 /**
  * Created by jamie on 16/06/2017.
  */
