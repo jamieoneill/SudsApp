@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Suds App</string>
+    <string name="newBeers">Get new beers</string>
 </resources>

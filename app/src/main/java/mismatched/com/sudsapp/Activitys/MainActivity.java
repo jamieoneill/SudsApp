@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<BeerResponse>call, Throwable t) {
                 // Print error
                 Log.d(TAG, t.toString());
+            }
+        });
+
+        Button refresh = (Button) findViewById(R.id.refreshBtn);
+                refresh.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
             }
         });
     }
